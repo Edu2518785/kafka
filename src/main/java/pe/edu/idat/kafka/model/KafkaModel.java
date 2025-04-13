@@ -8,10 +8,10 @@ public class KafkaModel {
     public KafkaModel() {
     }
 
-    public KafkaModel(String origen, String mensaje, String nivel) {
-        this.origen = origen;
-        this.mensaje = mensaje;
+    public KafkaModel(String nivel, String mensaje, String origen) {
         this.nivel = nivel;
+        this.mensaje = mensaje;
+        this.origen = origen;
     }
 
     public String getOrigen() {

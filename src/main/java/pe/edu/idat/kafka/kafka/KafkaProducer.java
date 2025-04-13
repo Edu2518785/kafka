@@ -1,31 +1,23 @@
 package pe.edu.idat.kafka.kafka;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 import pe.edu.idat.kafka.model.KafkaModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class KafkaProducer {
 
-    private final KafkaTemplate<String, String> kafkaTemplate;
+    private static final List<KafkaModel> listaComentarios = new ArrayList<>();
 
-    private static final String TOPIC = "logs_app";
+    @KafkaListener(topics ="logs_app", groupId = "group_idat")
 
-    public KafkaProducer(KafkaTemplate<String, String> kafkaTemplate) {
-        this.kafkaTemplate = kafkaTemplate;
+    public void guardarComentarios(KafkaModel kafkaModel) {
+        listaComentarios.add(kafkaModel);
     }
 
-    public void enviarMensaje(String mensaje){
-        kafkaTemplate.send(TOPIC, mensaje);
+    public static List<KafkaModel> listarComentarios() {
+        return listaComentarios;
     }
-    public void enviarMensaje(KafkaModel log) {
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            String logJson = mapper.writeValueAsString(log);
-            kafkaTemplate.send(TOPIC, logJson);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
 }
