@@ -9,15 +9,15 @@ import java.util.List;
 @Service
 public class KafkaProducer {
 
-    private static final List<KafkaModel> listaComentarios = new ArrayList<>();
+    private static final List<KafkaModel> lista = new ArrayList<>();
 
     @KafkaListener(topics ="logs_app", groupId = "group_idat")
 
-    public void guardarComentarios(KafkaModel kafkaModel) {
-        listaComentarios.add(kafkaModel);
+    public void guardar(KafkaModel kafkaModel) {
+        lista.add(kafkaModel);
     }
 
-    public static List<KafkaModel> listarComentarios() {
-        return listaComentarios;
+    public static List<KafkaModel> listar() {
+        return lista;
     }
 }

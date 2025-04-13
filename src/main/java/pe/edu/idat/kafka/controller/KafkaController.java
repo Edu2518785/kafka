@@ -23,13 +23,13 @@ public class KafkaController {
 
     @PostMapping("/log")
     public String enviarMensaje(@RequestBody KafkaModel kafkaModel) {
-        kafkaProducer.guardarComentarios(kafkaModel);
+        kafkaProducer.guardar(kafkaModel);
         return "Mensaje enviado a Kafka";
     }
 
     @GetMapping("/logs")
-    public List<KafkaModel> listarComentarios() {
-        return KafkaProducer.listarComentarios();
+    public List<KafkaModel> listar() {
+        return KafkaProducer.listar();
     }
 
 }
